@@ -10,6 +10,12 @@ class System
 
   def add_planet(name, size, day, year)
     new_body = Planet.new(name, size, day, year)
+
+    @bodies.each do |body|
+      if body.name == new_body.name #created_planet
+      return "NO!" # return "NO!"
+      end
+    end
     @bodies << new_body
     new_body
   end
@@ -41,12 +47,19 @@ class Body
     @@bodies
   end
 
+  def name
+    @name
+  end
+
   def size
     @size
   end
 
   def self.galatic_mass
     total_mass = 0
+
+    # @@bodies.map { |body| body.size }.sum
+
     @@bodies.each do |body|
       mass = body.size
       total_mass +=mass
@@ -65,6 +78,22 @@ class Planet < Body
     @day = day
     @year = year
     @@planets << self
+  end
+
+  def name
+    @name
+  end
+
+  def size
+    @size
+  end
+
+  def day
+    @day
+  end
+
+  def year
+    @year
   end
 
   def self.all
@@ -103,6 +132,8 @@ puts solar_system.bodies.inspect
 
 solar_system.add_planet("Earth", 10, 24, 365)
 puts solar_system.bodies.inspect
+puts solar_system.add_planet("Earth", 10, 24, 365)
+
 
 solar_system.add_moon("Moon", 1, 2, solar_system.bodies[1])
 puts solar_system.bodies.inspect
