@@ -30,13 +30,33 @@ end
 
 
 class Body
+  @@bodies =[]
   def initialize(name, size)
     @name = name
     @size = size
     @@bodies << self
   end
 
+  def self.bodies
+    @@bodies
+  end
+
+  def size
+    @size
+  end
+
+  def self.galatic_mass
+    total_mass = 0
+    @@bodies.each do |body|
+      mass = body.size
+      total_mass +=mass
+    end
+    total_mass
+  end
+
 end
+
+
 
 class Planet < Body
   @@planets = []
@@ -52,6 +72,8 @@ class Planet < Body
   end
 end
 
+
+
 class Star < Body
   @@stars = []
   def initialize (name, size, type)
@@ -60,6 +82,8 @@ class Star < Body
     @@stars << self
   end
 end
+
+
 
 class Moon < Body
   @@moons = []
@@ -70,6 +94,7 @@ class Moon < Body
     @@moons << self
   end
 end
+
 
 solar_system = System.new('Miky Way')
 solar_system.add_star('Sun', 1000, 'G-type')
@@ -91,4 +116,7 @@ alpha_system.add_star("Alpha Sun", 2000, "S-Type")
 puts alpha_system.bodies.inspect
 alpha_system.add_planet("Alpha Earth", 12, 20, 20)
 alpha_system.add_moon("Alpha Moon", 3, 2, alpha_system.bodies[1])
-puts alpha_system.bodies
+puts alpha_system.bodies.inspect
+
+puts Body.bodies
+puts Body.galatic_mass
